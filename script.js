@@ -41,19 +41,19 @@ class Tree{
         }
       }
 
-      delete(value) {
-        this.root = this.deleteNode(this.root, value);
+      remove(value) {
+        this.root = this.removeNode(this.root, value);
       }
     
-      deleteNode(root, value) {
-        // Delete selected Node
+      removeNode(root, value) {
+        // Removes selected Node
         if (root === null) {
           return root;
         }
         if (value < root.value) {
-          root.left = this.deleteNode(root.left, value);
+          root.left = this.removeNode(root.left, value);
         } else if (value > root.value) {
-          root.right = this.deleteNode(root.right, value);
+          root.right = this.removeNode(root.right, value);
         } else {
           if (!root.left && !root.right) {
             return null;
@@ -64,7 +64,7 @@ class Tree{
             return root.left;
           }
           root.value = this.min(root.right);
-          root.right = this.deleteNode(root.right, root.value);
+          root.right = this.removeNode(root.right, root.value);
         }
         return root;
       }
@@ -136,19 +136,6 @@ class Tree{
         }
       }
 
-    prettyPrint(node, prefix = '', isLeft = true) {
-        // Visualizes the Biary Search Tree in a structured format
-        if (node === null) {
-           return;
-        }
-        if (node.right !== null) {
-          this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-        }
-        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
-        if (node.left !== null) {
-          this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
-        }
-      }
       isBalanced(root) {
         /* Checks if the tree is balanced.
         Balanced tree is one where the difference between heights of left subtree and right subtree of every node is not more than 1 */
@@ -161,6 +148,21 @@ class Tree{
           console.log(false);
         } else {
           console.log(true);
+        }
+      }
+
+      
+    prettyPrint(node, prefix = '', isLeft = true) {
+        // Visualizes the Biary Search Tree in a structured format
+        if (node === null) {
+           return;
+        }
+        if (node.right !== null) {
+          this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        }
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
+        if (node.left !== null) {
+          this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
         }
       }
 }
